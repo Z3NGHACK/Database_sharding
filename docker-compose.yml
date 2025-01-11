@@ -1,16 +1,25 @@
-version: "3.9"
+version: '3.8'
+
 services:
-  db1:
-    image: mysql:latest
+  postgres:
+    image: postgres:latest
+    container_name: shard
+    restart: unless-stopped
+    tty: true
     environment:
-      MYSQL_ROOT_PASSWORD: "your_strong_password"
-      MYSQL_DATABASE: "shard1"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pw@2024
+      POSTGRES_DB: sharding
     ports:
-      - "33061:3306" 
-  db2:
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: "your_strong_password"
-      MYSQL_DATABASE: "shard2"
-    ports:
-      - "33062:3306"
+      - "7001:5432"  # Expose PostgreSQL port
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+    driver: bridge

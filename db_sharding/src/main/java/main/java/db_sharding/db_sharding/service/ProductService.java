@@ -73,4 +73,10 @@ public class ProductService {
         logger.info("Deleting product with ID: {}", productId);
         productRepo.deleteById(productId);
     }
+
+    public List<Product> getProductsByPriceRange(Double minPrice, Double maxPrice) {
+        logger.info("Fetching products with price between {} and {}", minPrice, maxPrice);
+        return productRepo.findByPriceBetween(minPrice, maxPrice);
+    }
+    
 }

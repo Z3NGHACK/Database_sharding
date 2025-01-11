@@ -5,47 +5,51 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long        productId;
+    private Long productId;
 
-    private String      productName;
-    private Double      price;
+    @NotNull
+    private String productName;
 
-    public Product()
-    {}
+    @Positive
+    private Double price;
 
-    public Product(
-        Long productId, 
-        String productName, 
-        Double price
-    ) {
+    public Product() {}
+
+    public Product(Long productId, String productName, Double price) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
     }
 
-    public Long getproductId() {
+    public Long getProductId() {
         return productId;
     }
-    public void setproductId(Long productId) {
+
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
-    public String getproductName() {
+
+    public String getProductName() {
         return productName;
     }
-    public void setproductName(String productName) {
+
+    public void setProductName(String productName) {
         this.productName = productName;
     }
-    public Double getprice() {
+
+    public Double getPrice() {
         return price;
     }
-    public void setprice(Double price) {
+
+    public void setPrice(Double price) {
         this.price = price;
     }
-
 }
